@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.5.0)
+      concurrent-ruby (~> 1.0)
     actioncable (7.1.5.1)
       actionpack (= 7.1.5.1)
       activesupport (= 7.1.5.1)
@@ -80,7 +82,24 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    aws-eventstream (1.3.0)
+    aws-partitions (1.1031.0)
+    aws-sdk-core (3.214.1)
+      aws-eventstream (~> 1, >= 1.3.0)
+      aws-partitions (~> 1, >= 1.992.0)
+      aws-sigv4 (~> 1.9)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.96.0)
+      aws-sdk-core (~> 3, >= 3.210.0)
+      aws-sigv4 (~> 1.5)
+    aws-sdk-s3 (1.177.0)
+      aws-sdk-core (~> 3, >= 3.210.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.5)
+    aws-sigv4 (1.10.1)
+      aws-eventstream (~> 1, >= 1.0.2)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     benchmark (0.4.0)
     bigdecimal (3.1.9)
     bindex (0.8.1)
@@ -103,6 +122,16 @@ GEM
     debug (1.10.0)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    devise (4.9.4)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
+    dotenv (3.1.7)
+    dotenv-rails (3.1.7)
+      dotenv (= 3.1.7)
+      railties (>= 6.1)
     drb (2.2.1)
     erubi (1.13.1)
     globalid (1.2.1)
@@ -120,6 +149,19 @@ GEM
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jmespath (1.6.2)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     logger (1.6.4)
     loofah (2.24.0)
       crass (~> 1.0.2)
@@ -161,6 +203,8 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.1-x86_64-linux-musl)
       racc (~> 1.4)
+    orm_adapter (0.5.0)
+    pg (1.5.9)
     psych (5.2.2)
       date
       stringio
@@ -211,6 +255,9 @@ GEM
     regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
+    responders (3.1.1)
+      actionpack (>= 5.2)
+      railties (>= 5.2)
     rexml (3.4.0)
     rubyzip (2.4)
     securerandom (0.4.1)
@@ -237,11 +284,18 @@ GEM
     stringio (3.1.2)
     thor (1.3.2)
     timeout (0.4.3)
+    trestle (0.10.1)
+      activemodel (>= 6.0.0)
+      kaminari (>= 1.1.0)
+      railties (>= 6.0.0)
+      turbo-rails (>= 2.0.6)
     turbo-rails (2.0.11)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -270,17 +324,23 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  aasm
+  aws-sdk-s3 (~> 1.48)
   bootsnap
   capybara
   debug
+  devise
+  dotenv-rails
   importmap-rails
   jbuilder
+  pg
   puma (>= 5.0)
   rails (~> 7.1.3, >= 7.1.3.3)
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
   stimulus-rails
+  trestle
   turbo-rails
   tzinfo-data
   web-console
