@@ -1,4 +1,5 @@
 class Link < ApplicationRecord
+  belongs_to :user
   validates :original_url, presence: true, format: URI::regexp(%w[http https])
   validates :short_url, uniqueness: true
 
