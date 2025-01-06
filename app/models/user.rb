@@ -5,4 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :links
+
+  attribute :admin, :boolean, default: false
+
+  def admin?
+    admin
+  end
 end

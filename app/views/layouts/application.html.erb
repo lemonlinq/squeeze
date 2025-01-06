@@ -17,7 +17,6 @@
     <div class="nav-links">
       <% if user_signed_in? %>
         <%= link_to 'Home', root_path %>
-        <%= link_to 'Upload', new_resource_path %>
         <%= link_to 'Profile', profile_path %>
         <% if current_user.admin? %>
           <%= link_to 'Admin', '/admin' %>
