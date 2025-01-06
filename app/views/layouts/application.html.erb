@@ -1,18 +1,34 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>App</title>
+    <title>Lemonlinq</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= favicon_link_tag asset_path('lemonlinq_transparent.png') %>
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="navbar">
+    <a href="/" class="brand">Lemonlinq</a>
+    <div class="nav-links">
+      <% if user_signed_in? %>
+        <%= link_to 'Home', root_path %>
+        <%= link_to 'Upload', new_resource_path %>
+        <%= link_to 'Profile', profile_path %>
+        <% if current_user.admin? %>
+          <%= link_to 'Admin', '/admin' %>
+        <% end %>
+      <% else %>
+        <%= link_to 'Sign In', new_user_session_path %>
+        <%= link_to 'Sign Up', new_user_registration_path %>
+      <% end %>
+    </div>
+  </div>
+   
     <%= yield %>
   </body>
 </html>
