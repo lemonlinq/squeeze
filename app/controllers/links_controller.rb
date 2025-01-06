@@ -5,6 +5,7 @@ class LinksController < ApplicationController
 
   def create
     @link = Link.new(link_params)
+    @link.user = current_user if user_signed_in?
 
     if @link.save
       render json: { original_url: @link.original_url, short_url: short_url(@link.short_url) }, status: :created
@@ -16,7 +17,7 @@ class LinksController < ApplicationController
   def redirect
     link = Link.find_by(short_url: params[:short_url])
     if link
-      redirect_to link.original_url
+      redirect_to link.original_url, allow_other_host: true
     else
       render plain: "URL not found", status: :not_found
     end
