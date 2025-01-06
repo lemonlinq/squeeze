@@ -1,5 +1,7 @@
-<% flash.each do |key, message| %>
-  <div class="alert alert-<%= key == 'notice' ? 'success' : key == 'alert' ? 'danger' : key %>">
-    <%= message %>
-  </div>
-<% end %>
+<div id="flash-messages">
+  <% flash.each do |key, message| %>
+    <div class="alert alert-<%= key %>" data-controller="flash-messages">
+      <%= message %>
+    </div>
+  <% end %>
+</div>
