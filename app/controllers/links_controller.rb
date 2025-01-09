@@ -1,9 +1,14 @@
 class LinksController < ApplicationController
-  def index
-    @link = Link.new
+
+    def index
+      @link = Link.new
+      @links = Link.order(created_at: :desc) # Fetch all links, or [] if none exist
+
   end
 
   def create
+
+
     @link = Link.new(link_params)
     @link.user = current_user if user_signed_in?
 
