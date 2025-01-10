@@ -2,15 +2,18 @@ class LinksController < ApplicationController
 
     def index
       @link = Link.new
-      @links = Link.order(created_at: :desc) # Fetch all links, or [] if none exist
+      @links = current_user ? current_user.links.order(created_at: :desc) : Link.where(session_id: session.id.to_s).order(created_at: :desc)
+
 
   end
 
   def create
-
-
     @link = Link.new(link_params)
-    @link.user = current_user if user_signed_in?
+    if user_signed_in?
+      @link.user = current_user
+    else
+      @link.session_id = session.id.to_s
+    end
 
     if @link.save
       render json: { original_url: @link.original_url, short_url: short_url(@link.short_url) }, status: :created

@@ -2,6 +2,7 @@ class Link < ApplicationRecord
   belongs_to :user, optional: true
   validates :original_url, presence: true, format: URI::regexp(%w[http https])
   validates :short_url, uniqueness: true
+  validates :session_id, presence: true, unless: -> { user.present? }
 
   before_validation :add_protocol_if_missing
   before_create :generate_short_url
