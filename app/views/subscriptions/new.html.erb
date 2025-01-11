@@ -1,0 +1,10 @@
+<h1>Select a Subscription Plan</h1>
+
+<% @tiers.each do |tier, details| %>
+  <div>
+    <h2><%= tier %></h2>
+    <p>Link Limit: <%= details[:link_limit] == Float::INFINITY ? "Unlimited" : details[:link_limit] %></p>
+    <p>Price: $<%= details[:price] %>/month</p>
+    <%= button_to "Choose #{tier}", subscriptions_path(tier: tier), method: :post %>
+  </div>
+<% end %>

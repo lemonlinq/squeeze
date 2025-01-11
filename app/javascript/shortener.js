@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbo:load', () => {
     const form = document.getElementById('shortener-form');
     const resultDiv = document.getElementById('result');
 
@@ -18,13 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: JSON.stringify({ link: { original_url: originalUrl } })
                 });
 
-                const data = await response.json();
-                if (response.ok) {
-                    resultDiv.innerHTML = `
-              <p>Shortened URL: <a href="${data.short_url}" target="_blank">${data.short_url}</a></p>
-            `;
+                if (response.redirected) {
+                    // Handle server-side redirect
+                    window.location.href = response.url;
                 } else {
-                    resultDiv.textContent = data.errors.join(', ');
+                    const data = await response.json();
+                    if (response.ok) {
+                        resultDiv.innerHTML = `
+                            <p>Shortened URL: <a href="${data.short_url}" target="_blank">${data.short_url}</a></p>
+                        `;
+                    } else {
+                        resultDiv.textContent = data.errors ? data.errors.join(', ') : 'An error occurred.';
+                    }
                 }
             } catch (error) {
                 resultDiv.textContent = 'An error occurred. Please try again.';

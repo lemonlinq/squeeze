@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   def clear_session_links
     session[:id] = nil # Clear session ID to prevent future association
+    reset_session
     Rails.logger.info "Cleared session data after logout."
   end
 

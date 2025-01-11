@@ -5,7 +5,7 @@ export default class extends Controller {
         // Automatically hide flash messages after 2 seconds
         setTimeout(() => {
             this.fadeOut();
-        }, 2000);
+        }, 4000);
     }
 
     fadeOut() {
